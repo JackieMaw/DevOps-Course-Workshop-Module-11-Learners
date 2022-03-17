@@ -1,0 +1,33 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "Anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "request",
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "name": "subtitles",
+      "type": "table",
+      "tableName": "AcmeTranslations",
+      "partitionKey": "subtitle",
+      "connection": "AzureWebJobsStorage",
+      "direction": "out"
+    },  
+    {
+      "type": "queue",
+      "direction": "out",
+      "name": "translationqueue",
+      "queueName": "acmesub-translations-queue"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    }
+  ]
+}
