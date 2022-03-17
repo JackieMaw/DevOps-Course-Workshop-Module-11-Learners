@@ -16,18 +16,20 @@ def main(request: func.HttpRequest, subtitles: func.Out[str], translationqueue: 
     rowKey = str(uuid.uuid4())
     data = {
         "Subtitle": subtitle,
-        "PartitionKey": subtitle,
+        "PartitionKey": "subtitle",
         "RowKey": rowKey
     }
     subtitles.set(json.dumps(data))
 
     translation_messages = []
+
     for language in languages:
         translation_message = {
             "rowKey": rowKey,
             "languageCode": language
         }
         translation_messages.append(translation_message)
+
     translationqueue.set(json.dumps(translation_messages))
 
     end = time.time()
